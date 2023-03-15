@@ -1,12 +1,12 @@
 <template>
   <v-card class="elevation-3">
     <v-card-item class="py-2 px-3">
-      <template v-for="(team, index) in props.game.teams" :key="index">
+      <template v-for="(teamScore, index) in props.match.teamScores" :key="index">
         <v-divider class="my-1" v-if="index !== 0"></v-divider>
         <div class="d-flex flex-nowrap justify-space-between py-1">
-          <v-avatar v-if="team.color" :color="team.color" size="x-small"></v-avatar>
-          <div class="team-name">{{ team.name }}</div>
-          <div>{{ team.score }}</div>
+          <v-avatar v-if="teamScore.team?.color" :color="teamScore.team?.color" size="x-small"></v-avatar>
+          <div class="team-name">{{ teamScore.team?.name }}</div>
+          <div>{{ teamScore.score }}</div>
         </div>
       </template>
     </v-card-item>
@@ -14,10 +14,10 @@
 </template>
 
 <script setup lang="ts">
-import { IGame } from '../models'
+import { IMatch } from '../models'
 
 const props = defineProps<{
-  game: IGame
+  match: IMatch
 }>()
 </script>
 

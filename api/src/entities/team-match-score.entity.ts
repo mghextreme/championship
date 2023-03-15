@@ -13,7 +13,7 @@ export class TeamMatchScore {
   @ManyToOne(() => Team, (team) => team.matchScores)
   team: Team;
 
-  @ManyToOne(() => Match, (match) => match.teamScores)
+  @ManyToOne(() => Match, (match) => match.teamScores, {nullable: false})
   match: Match;
 
   @Column('integer', {default: 0})

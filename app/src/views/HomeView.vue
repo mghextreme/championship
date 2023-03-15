@@ -13,7 +13,7 @@ import Container from '../components/Container.vue'
 import TopBar from '../components/TopBar.vue'
 
 // TODO: Delete
-import { IBracket, IBracketRound, IGame, ITeamScore } from '../models'
+import { IBracket, IMatch, ITeamScore } from '../models'
 
 export default {
   name: 'HomeView',
@@ -25,117 +25,70 @@ export default {
   data() {
     return {
       sample: {
-        rounds: [
-          {
-            name: 'Finals',
-            games: [
-              {
-                teams: [
-                  {
+        id: 1,
+        name: 'Playoffs',
+        root: {
+          id: 1,
+          finished: false,
+          teamScores: [
+            {
+              team: {
+                name: 'A',
+                color: 'blue'
+              },
+              score: 0
+            } as ITeamScore,
+            {
+              team: {
+                name: 'H',
+                color: 'red'
+              },
+              score: 0
+            } as ITeamScore
+          ],
+          precedingMatches: [
+            {
+              id: 2,
+              finished: true,
+              teamScores: [
+                {
+                  team: {
                     name: 'A',
-                    score: 0,
                     color: 'blue'
-                  } as ITeamScore,
-                  {
-                    name: 'H',
-                    score: 0,
-                    color: 'red'
-                  } as ITeamScore
-                ]
-              } as IGame
-            ]
-          } as IBracketRound,
-          {
-            name: 'Semi Finals',
-            games: [
-              {
-                teams: [
-                  {
-                    name: 'A',
-                    score: 1,
-                    color: 'blue'
-                  } as ITeamScore,
-                  {
+                  },
+                  score: 1
+                } as ITeamScore,
+                {
+                  team: {
                     name: 'D',
-                    score: 0,
                     color: 'yellow'
-                  } as ITeamScore
-                ]
-              } as IGame,
-              {
-                teams: [
-                  {
+                  },
+                  score: 0
+                } as ITeamScore
+              ]
+            } as IMatch,
+            {
+              id: 3,
+              finished: true,
+              teamScores: [
+                {
+                  team: {
                     name: 'E',
-                    score: 0,
                     color: 'green'
-                  } as ITeamScore,
-                  {
+                  },
+                  score: 0
+                } as ITeamScore,
+                {
+                  team: {
                     name: 'H',
-                    score: 1,
                     color: 'red'
-                  } as ITeamScore
-                ]
-              } as IGame
-            ]
-          } as IBracketRound,
-          {
-            name: 'Quarter Finals',
-            games: [
-              {
-                teams: [
-                  {
-                    name: 'A',
-                    score: 1,
-                    color: 'blue'
-                  } as ITeamScore,
-                  {
-                    name: 'B',
-                    score: 0
-                  } as ITeamScore
-                ]
-              } as IGame,
-              {
-                teams: [
-                  {
-                    name: 'C',
-                    score: 0
-                  } as ITeamScore,
-                  {
-                    name: 'D',
-                    score: 1,
-                    color: 'yellow'
-                  } as ITeamScore
-                ]
-              } as IGame,
-              {
-                teams: [
-                  {
-                    name: 'E',
-                    score: 1,
-                    color: 'green'
-                  } as ITeamScore,
-                  {
-                    name: 'F',
-                    score: 0
-                  } as ITeamScore
-                ]
-              } as IGame,
-              {
-                teams: [
-                  {
-                    name: 'G',
-                    score: 0
-                  } as ITeamScore,
-                  {
-                    name: 'H',
-                    score: 1,
-                    color: 'red'
-                  } as ITeamScore
-                ]
-              } as IGame
-            ]
-          } as IBracketRound
-        ]
+                  },
+                  score: 1
+                } as ITeamScore
+              ]
+            } as IMatch
+          ]
+        } as IMatch
       } as IBracket
     }
   }

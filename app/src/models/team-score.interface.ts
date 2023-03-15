@@ -1,5 +1,6 @@
+import { ITeam } from "./team.interface"
+
 export interface ITeamScore {
-  name: string
-  color: string
+  team?: ITeam
   score?: number
 }

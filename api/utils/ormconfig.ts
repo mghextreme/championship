@@ -21,9 +21,9 @@ export default {
   synchronize: config.database.synchronize,
   entities: enititesList,
   seeds: [
-    'utils/seeds/**/*{.ts,.js}'
+    'utils/seeds/**/*.seed{.ts,.js}'
   ],
   factories: [
-    'utils/factories/**/*{.ts,.js}'
+    'utils/factories/**/*.factory{.ts,.js}'
   ]
 }

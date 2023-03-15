@@ -1,4 +1,4 @@
 export * from './bracket.interface'
-export * from './bracket-round.interface'
-export * from './game.interface'
+export * from './match.interface'
+export * from './team.interface'
 export * from './team-score.interface'

@@ -1,5 +1,7 @@
-import { IBracketRound } from "./bracket-round.interface";
+import { IMatch } from "./match.interface"
 
 export interface IBracket {
-  rounds: IBracketRound[]
+  id?: number
+  name?: string
+  root: IMatch
 }
