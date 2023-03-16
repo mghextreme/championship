@@ -21,7 +21,8 @@ export class StagesService {
       where: {
         stageId: id,
         nextMatchId: null
-      }
+      },
+      relations: ['teamScores', 'teamScores.team']
     })
 
     const stage = await stagePromise
@@ -36,7 +37,10 @@ export class StagesService {
 
     const rootMatch = await rootMatchPromise
     if (rootMatch) {
-      item.root = await this.matchTreeRepository.findDescendantsTree(rootMatch)
+      item.root = await this.matchTreeRepository.findDescendantsTree(
+        rootMatch,
+        { relations: ['teamScores', 'teamScores.team'] }
+      )
     }
 
     return item

@@ -20,7 +20,7 @@ const props = defineProps<{
 
 <style lang="scss" scoped>
 .bracket-node .round {
-  width: 200px;
+  width: 220px;
   margin: 0;
 
   &.current {

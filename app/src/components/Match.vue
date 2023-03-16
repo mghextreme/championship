@@ -5,7 +5,7 @@
         <v-divider class="my-1" v-if="index !== 0"></v-divider>
         <div class="d-flex flex-nowrap justify-space-between py-1">
           <v-avatar v-if="teamScore.team?.color" :color="teamScore.team?.color" size="x-small"></v-avatar>
-          <div class="team-name">{{ teamScore.team?.name }}</div>
+          <div class="team-name text-truncate" :title="teamScore.team?.name">{{ teamScore.team?.name || 'TBD' }}</div>
           <div>{{ teamScore.score }}</div>
         </div>
       </template>
