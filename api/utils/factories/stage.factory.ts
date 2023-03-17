@@ -5,5 +5,6 @@ import { define } from "typeorm-seeding"
 define(Stage, (faker: typeof Faker) => {
   const stage = new Stage()
   stage.name = faker.name.title()
+  stage.finished = false
   return stage
 })

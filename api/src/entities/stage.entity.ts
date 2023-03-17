@@ -37,4 +37,8 @@ export class Stage {
   @Column()
   modalityId: number;
 
+  @Column()
+  @ApiProperty()
+  finished: boolean;
+
 }

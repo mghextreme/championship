@@ -1,8 +1,7 @@
 import { ITeam } from "./team.interface"
 
-export interface IRoundRobinStandingsRow {
+export interface IStandingsRow {
   team: ITeam
-  position: number
   points: number
   wins: number
   ties: number

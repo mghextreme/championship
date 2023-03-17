@@ -1,6 +1,6 @@
 import { ClassSerializerInterceptor, Controller, Get, Param, UseInterceptors } from '@nestjs/common';
 import { StagesService } from 'src/services';
-import { SingleBracketStageViewModel } from 'src/models';
+import { RoundRobinStageViewModel, SingleBracketStageViewModel } from 'src/models';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('stages')
@@ -11,8 +11,7 @@ export class StagesController {
   constructor(private readonly service: StagesService) {}
 
   @Get(':id')
-  @ApiResponse({ type: SingleBracketStageViewModel })
-  async findOne(@Param('id') id: number): Promise<SingleBracketStageViewModel> {
+  async findOne(@Param('id') id: number): Promise<SingleBracketStageViewModel | RoundRobinStageViewModel> {
     return this.service.findOne(id);
   }
 

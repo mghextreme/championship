@@ -3,7 +3,7 @@
   <v-main class="bg-grey-lighten-3">
     <v-container>
       <v-sheet rounded="lg" class="pa-5">
-        <Bracket v-if="sample2" :bracket="sample2"></Bracket>
+        <Bracket v-if="sample2" :stage="sample2"></Bracket>
       </v-sheet>
     </v-container>
   </v-main>
@@ -24,7 +24,6 @@ const stagesService = new StagesService()
 const sample2: Ref<ISingleBracketStage | null> = ref(null)
 stagesService.findOne(3).then(response => {
   let bracket = response.data as ISingleBracketStage
-  console.log(bracket)
   sample2.value = bracket
 })
 </script>
