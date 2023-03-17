@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MatchesModule, SampleModule, StagesModule, TeamsModule } from './modules';
+import { MatchesModule, ModalitiesModule, StagesModule, TeamsModule } from './modules';
 import configuration from './config/configuration';
 
 @Module({
@@ -17,7 +17,7 @@ import configuration from './config/configuration';
       inject: [ConfigService]
     }),
     MatchesModule,
-    SampleModule,
+    ModalitiesModule,
     StagesModule,
     TeamsModule
   ]

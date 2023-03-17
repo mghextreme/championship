@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Match, Stage } from 'src/entities';
+import { Match, Stage, StageType } from 'src/entities';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository, TreeRepository } from 'typeorm';
 import { SingleBracketStageViewModel } from 'src/models';
@@ -16,16 +16,24 @@ export class StagesService {
     }
 
   async findOne(id: number): Promise<SingleBracketStageViewModel> {
-    const stagePromise = this.repository.findOneBy({ id })
+    const stage = await this.repository.findOneBy({ id })
+
+    switch (stage.type) {
+      case StageType.SingleBracket:
+        return this.get_single_bracket_stage(stage)
+    }
+
+    return null
+  }
+
+  async get_single_bracket_stage(stage: Stage): Promise<SingleBracketStageViewModel> {
     const rootMatchPromise = this.matchTreeRepository.findOne({
       where: {
-        stageId: id,
+        stageId: stage.id,
         nextMatchId: null
       },
       relations: ['teamScores', 'teamScores.team']
     })
-
-    const stage = await stagePromise
 
     if (!stage) {
       return null

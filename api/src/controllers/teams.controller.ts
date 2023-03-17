@@ -1,8 +1,8 @@
 import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { TeamCreateDto, TeamUpdateDto, QueryResultDto } from 'src/models';
 import { TeamsService } from 'src/services';
-import { Sample } from 'src/entities';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Team } from 'src/entities';
 
 @ApiTags('teams')
 @Controller('teams')
@@ -12,26 +12,26 @@ export class TeamsController {
   constructor(private readonly service: TeamsService) {}
 
   @Get()
-  @ApiResponse({ type: Sample, isArray: true })
-  async findAll(): Promise<Sample[]> {
+  @ApiResponse({ type: Team, isArray: true })
+  async findAll(): Promise<Team[]> {
     return this.service.findAll();
   }
 
   @Get(':id')
-  @ApiResponse({ type: Sample })
-  async findOne(@Param('id') id: number): Promise<Sample> {
+  @ApiResponse({ type: Team })
+  async findOne(@Param('id') id: number): Promise<Team> {
     return this.service.findOne(id);
   }
 
   @Post()
-  @ApiResponse({ type: Sample })
-  async create(@Body() createDto: TeamCreateDto): Promise<Sample> {
+  @ApiResponse({ type: Team })
+  async create(@Body() createDto: TeamCreateDto): Promise<Team> {
     return this.service.create(createDto);
   }
 
   @Put(':id')
-  @ApiResponse({ type: Sample })
-  update(@Param('id') id: number, @Body() updateDto: TeamUpdateDto): Promise<Sample> {
+  @ApiResponse({ type: Team })
+  update(@Param('id') id: number, @Body() updateDto: TeamUpdateDto): Promise<Team> {
     return this.service.update(id, updateDto);
   }
 

@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import EventView from '../views/EventView.vue'
+import ModalityView from '../views/ModalityView.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: HomeView
+    name: 'Event',
+    component: EventView
+  },
+  {
+    path: '/modality/:id',
+    name: 'Modality',
+    component: ModalityView
   }
 ]
 

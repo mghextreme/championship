@@ -6,7 +6,7 @@
         color="grey-darken-1"
         size="32"
       >S</v-avatar>
-      <v-btn variant="text">
+      <v-btn variant="text" href="/">
         Home
       </v-btn>
       <v-spacer></v-spacer>
