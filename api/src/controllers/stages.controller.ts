@@ -1,7 +1,8 @@
-import { ClassSerializerInterceptor, Controller, Get, Param, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { StagesService } from 'src/services';
-import { RoundRobinStageViewModel, SingleBracketStageViewModel } from 'src/models';
+import { QueryResultDto, RoundRobinStageViewModel, SingleBracketStageViewModel, StageCreateDto, StageUpdateDto } from 'src/models';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Stage } from 'src/entities';
 
 @ApiTags('stages')
 @Controller('stages')
@@ -13,6 +14,24 @@ export class StagesController {
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<SingleBracketStageViewModel | RoundRobinStageViewModel> {
     return this.service.findOne(id);
+  }
+
+  @Post()
+  @ApiResponse({ type: Stage })
+  async create(@Body() createDto: StageCreateDto): Promise<Stage> {
+    return this.service.create(createDto);
+  }
+
+  @Put(':id')
+  @ApiResponse({ type: Stage })
+  update(@Param('id') id: number, @Body() updateDto: StageUpdateDto): Promise<Stage> {
+    return this.service.update(id, updateDto);
+  }
+
+  @Delete(':id')
+  @ApiResponse({ type: QueryResultDto })
+  remove(@Param('id') id: number): Promise<QueryResultDto> {
+    return this.service.remove(id);
   }
 
 }

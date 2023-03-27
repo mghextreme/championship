@@ -2,8 +2,8 @@ import * as _ from 'lodash';
 import { Injectable } from '@nestjs/common';
 import { Match, Stage, StageType } from 'src/entities';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, Repository, TreeRepository } from 'typeorm';
-import { RoundRobinStageViewModel, SingleBracketStageViewModel, StandingsRowViewModel } from 'src/models';
+import { EntityManager, EntityNotFoundError, Repository, TreeRepository } from 'typeorm';
+import { QueryResultDto, RoundRobinStageViewModel, SingleBracketStageViewModel, StageCreateDto, StageUpdateDto, StandingsRowViewModel } from 'src/models';
 
 @Injectable()
 export class StagesService {
@@ -20,14 +20,31 @@ export class StagesService {
   async findOne(id: number): Promise<SingleBracketStageViewModel | RoundRobinStageViewModel> {
     const stage = await this.repository.findOneBy({ id })
 
+    if (!stage) {
+      throw new EntityNotFoundError(Stage, { id })
+    }
+
     switch (stage.type) {
       case StageType.RoundRobin:
         return this.get_round_robin_stage(stage)
       case StageType.SingleBracket:
         return this.get_single_bracket_stage(stage)
     }
+  }
 
-    return null
+  async create(createDto: StageCreateDto): Promise<Stage> {
+    const creation = this.repository.create(createDto);
+    return this.repository.save(creation);
+  }
+
+  async update(id: number, updateDto: StageUpdateDto): Promise<Stage> {
+    const record = await this.repository.findOneBy({ id });
+    this.repository.merge(record, updateDto);
+    return this.repository.save(record);
+  }
+
+  async remove(id: number): Promise<QueryResultDto> {
+    return this.repository.delete(id).then(r => ({ success: r.affected > 0 } as QueryResultDto));
   }
 
   private async get_single_bracket_stage(stage: Stage): Promise<SingleBracketStageViewModel> {
