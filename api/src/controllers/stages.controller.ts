@@ -1,6 +1,6 @@
 import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { StagesService } from 'src/services';
-import { QueryResultDto, RoundRobinStageViewModel, SingleBracketStageViewModel, StageCreateDto, StageUpdateDto } from 'src/models';
+import { QueryResultDto, RoundRobinStageViewModel, SingleBracketStageViewModel, StageDto } from 'src/models';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Stage } from 'src/entities';
 import { Public } from './decorators';
@@ -20,13 +20,13 @@ export class StagesController {
 
   @Post()
   @ApiResponse({ type: Stage })
-  async create(@Body() createDto: StageCreateDto): Promise<Stage> {
+  async create(@Body() createDto: StageDto): Promise<Stage> {
     return this.service.create(createDto);
   }
 
   @Put(':id')
   @ApiResponse({ type: Stage })
-  update(@Param('id') id: number, @Body() updateDto: StageUpdateDto): Promise<Stage> {
+  update(@Param('id') id: number, @Body() updateDto: StageDto): Promise<Stage> {
     return this.service.update(id, updateDto);
   }
 

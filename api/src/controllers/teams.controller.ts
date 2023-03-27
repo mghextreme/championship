@@ -1,5 +1,5 @@
 import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
-import { TeamCreateDto, TeamUpdateDto, QueryResultDto } from 'src/models';
+import { TeamDto, QueryResultDto } from 'src/models';
 import { TeamsService } from 'src/services';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Team } from 'src/entities';
@@ -28,13 +28,13 @@ export class TeamsController {
 
   @Post()
   @ApiResponse({ type: Team })
-  async create(@Body() createDto: TeamCreateDto): Promise<Team> {
+  async create(@Body() createDto: TeamDto): Promise<Team> {
     return this.service.create(createDto);
   }
 
   @Put(':id')
   @ApiResponse({ type: Team })
-  update(@Param('id') id: number, @Body() updateDto: TeamUpdateDto): Promise<Team> {
+  update(@Param('id') id: number, @Body() updateDto: TeamDto): Promise<Team> {
     return this.service.update(id, updateDto);
   }
 

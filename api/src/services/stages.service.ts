@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Match, Stage, StageType } from 'src/entities';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, EntityNotFoundError, Repository, TreeRepository } from 'typeorm';
-import { QueryResultDto, RoundRobinStageViewModel, SingleBracketStageViewModel, StageCreateDto, StageUpdateDto, StandingsRowViewModel } from 'src/models';
+import { QueryResultDto, RoundRobinStageViewModel, SingleBracketStageViewModel, StageDto, StandingsRowViewModel } from 'src/models';
 
 @Injectable()
 export class StagesService {
@@ -32,12 +32,12 @@ export class StagesService {
     }
   }
 
-  async create(createDto: StageCreateDto): Promise<Stage> {
+  async create(createDto: StageDto): Promise<Stage> {
     const creation = this.repository.create(createDto);
     return this.repository.save(creation);
   }
 
-  async update(id: number, updateDto: StageUpdateDto): Promise<Stage> {
+  async update(id: number, updateDto: StageDto): Promise<Stage> {
     const record = await this.repository.findOneBy({ id });
     this.repository.merge(record, updateDto);
     return this.repository.save(record);

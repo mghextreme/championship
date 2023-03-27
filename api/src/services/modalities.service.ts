@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Modality } from 'src/entities';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ModalityCreateDto, ModalityUpdateDto, QueryResultDto } from 'src/models';
+import { ModalityDto, QueryResultDto } from 'src/models';
 
 @Injectable()
 export class ModalitiesService {
@@ -23,12 +23,12 @@ export class ModalitiesService {
     })
   }
 
-  async create(createDto: ModalityCreateDto): Promise<Modality> {
+  async create(createDto: ModalityDto): Promise<Modality> {
     const creation = this.repository.create(createDto);
     return this.repository.save(creation);
   }
 
-  async update(id: number, updateDto: ModalityUpdateDto): Promise<Modality> {
+  async update(id: number, updateDto: ModalityDto): Promise<Modality> {
     const record = await this.repository.findOneBy({ id });
     this.repository.merge(record, updateDto);
     return this.repository.save(record);
