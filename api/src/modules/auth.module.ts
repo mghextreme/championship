@@ -3,7 +3,7 @@ import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { AuthController } from "src/controllers";
 import { AuthService } from "src/services";
-import { JwtAuthGuard, JwtStrategy, LocalStrategy } from "src/services/auth";
+import { JwtAuthGuard, JwtStrategy } from "src/services/auth";
 import { UsersModule } from "./users.module";
 import { ConfigService } from '@nestjs/config';
 import { APP_GUARD } from "@nestjs/core";
@@ -24,7 +24,6 @@ import { APP_GUARD } from "@nestjs/core";
     })],
   providers: [
     AuthService,
-    LocalStrategy,
     JwtStrategy,
     {
       provide: APP_GUARD,

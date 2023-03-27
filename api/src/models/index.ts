@@ -1,4 +1,6 @@
+export * from './access-token.dto';
 export * from './create.dto.interface';
+export * from './login.dto';
 export * from './modality.create.dto';
 export * from './modality.update.dto';
 export * from './query.result.dto';
