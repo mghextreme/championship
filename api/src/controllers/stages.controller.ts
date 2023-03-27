@@ -3,6 +3,7 @@ import { StagesService } from 'src/services';
 import { QueryResultDto, RoundRobinStageViewModel, SingleBracketStageViewModel, StageCreateDto, StageUpdateDto } from 'src/models';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Stage } from 'src/entities';
+import { Public } from './decorators';
 
 @ApiTags('stages')
 @Controller('stages')
@@ -11,6 +12,7 @@ export class StagesController {
 
   constructor(private readonly service: StagesService) {}
 
+  @Public()
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<SingleBracketStageViewModel | RoundRobinStageViewModel> {
     return this.service.findOne(id);

@@ -3,6 +3,7 @@ import { ModalitiesService } from 'src/services';
 import { Modality } from 'src/entities';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ModalityCreateDto, ModalityUpdateDto, QueryResultDto } from 'src/models';
+import { Public } from './decorators';
 
 @ApiTags('modalities')
 @Controller('modalities')
@@ -11,12 +12,14 @@ export class ModalitiesController {
 
   constructor(private readonly service: ModalitiesService) {}
 
+  @Public()
   @Get()
   @ApiResponse({ type: Modality, isArray: true })
   async findAll(): Promise<Modality[]> {
     return this.service.findAll();
   }
 
+  @Public()
   @Get(':id')
   @ApiResponse({ type: Modality })
   async findOne(@Param('id') id: number): Promise<Modality> {

@@ -14,5 +14,8 @@ export default () => ({
     dropSchema: process.env.TYPEORM_DROP_SCHEMA === 'true',
     synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
     autoLoadEntities: true,
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET
   }
 })

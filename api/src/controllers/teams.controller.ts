@@ -3,6 +3,7 @@ import { TeamCreateDto, TeamUpdateDto, QueryResultDto } from 'src/models';
 import { TeamsService } from 'src/services';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Team } from 'src/entities';
+import { Public } from './decorators';
 
 @ApiTags('teams')
 @Controller('teams')
@@ -11,12 +12,14 @@ export class TeamsController {
 
   constructor(private readonly service: TeamsService) {}
 
+  @Public()
   @Get()
   @ApiResponse({ type: Team, isArray: true })
   async findAll(): Promise<Team[]> {
     return this.service.findAll();
   }
 
+  @Public()
   @Get(':id')
   @ApiResponse({ type: Team })
   async findOne(@Param('id') id: number): Promise<Team> {

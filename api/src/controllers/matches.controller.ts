@@ -2,6 +2,7 @@ import { ClassSerializerInterceptor, Controller, Get, Param, UseInterceptors } f
 import { MatchesService } from 'src/services';
 import { Match } from 'src/entities';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Public } from './decorators';
 
 @ApiTags('matches')
 @Controller('matches')
@@ -10,6 +11,7 @@ export class MatchesController {
 
   constructor(private readonly service: MatchesService) {}
 
+  @Public()
   @Get(':id')
   @ApiResponse({ type: Match })
   async findOne(@Param('id') id: number): Promise<Match> {
