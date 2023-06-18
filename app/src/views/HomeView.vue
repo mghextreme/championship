@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
-import Bracket from '../components/Bracket.vue'
+import Bracket from '../components/SingleBracket.vue'
 import TopBar from '../components/TopBar.vue'
 import { StagesService } from '../services'
 

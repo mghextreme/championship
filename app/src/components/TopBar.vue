@@ -5,7 +5,10 @@
 </template>
 
 <style lang="scss" scoped>
+@import '../assets/scss/variables';
+
 header.top-bar {
   padding: 1em;
+  background-color: $white;
 }
 </style>

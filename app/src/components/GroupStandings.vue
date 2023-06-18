@@ -30,8 +30,6 @@
         </tr>
       </tbody>
     </table>
-    <h4 class="mt-4">Matches</h4>
-    <Match v-for="match in bracket.matches" :match="match"></Match>
   </div>
 </template>
 
@@ -39,7 +37,7 @@
 import { inject, Ref, ref } from 'vue';
 import { IRoundRobinStage, StageType } from '../models';
 import { StagesService } from '../services';
-import Match from '../components/Match.vue';
+import Match from './Match.vue';
 
 const props = defineProps<{
   stage: IRoundRobinStage

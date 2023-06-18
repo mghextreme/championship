@@ -1,4 +1,4 @@
-import { ClassSerializerInterceptor, Controller, Get, Param, UseInterceptors } from '@nestjs/common';
+import { ClassSerializerInterceptor, Controller, Get, Param, Query, UseInterceptors } from '@nestjs/common';
 import { MatchesService } from 'src/services';
 import { Match } from 'src/entities';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -10,6 +10,15 @@ import { Public } from './decorators';
 export class MatchesController {
 
   constructor(private readonly service: MatchesService) {}
+
+  @Public()
+  @Get('?')
+  @ApiResponse({ type: Match, isArray: true })
+  async find(
+    @Query('modality') modality: number = undefined,
+    @Query('finished') finished: boolean = undefined): Promise<Match[]> {
+    return this.service.find(modality, finished);
+  }
 
   @Public()
   @Get(':id')

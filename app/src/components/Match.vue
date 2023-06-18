@@ -1,37 +1,37 @@
 <template>
-  <template v-for="(teamScore, index) in props.match.teamScores" :key="index">
-    <v-divider class="my-1" v-if="index !== 0"></v-divider>
-    <div>
-      Icon
-      <div class="team-name" :class="{'font-weight-bold': winnerTeamId && winnerTeamId === teamScore.team?.id}" :title="teamScore.team?.name">{{ teamScore.team?.name || 'TBD' }}</div>
-      <div>{{ teamScore.score }}</div>
+  <div class="match">
+    <div v-for="(teamScore, index) in props.match.teamScores" :key="index">
+      <div>
+        Icon
+        <div class="team-name" :title="teamScore.team?.name">{{ teamScore.team?.name || 'TBD' }}</div>
+        <div>{{ teamScore.score }}</div>
+      </div>
     </div>
-  </template>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue"
 import { IMatch } from '../models'
 
-const props = defineProps<{
-  match: IMatch
-}>()
+export interface Props {
+  match: IMatch,
+  layout: 'horizontal' | 'vertical',
+  showStage: boolean
+}
 
-const winnerTeamId = computed(() => {
-  if (!props.match.finished || !props.match.teamScores) {
-    return null
-  }
-
-  const hasWinner = props.match.teamScores[0].score != props.match.teamScores[1].score
-  if (!hasWinner) {
-     return null
-  }
-
-  return props.match.teamScores[0].score > props.match.teamScores[1].score ? props.match.teamScores[0].team?.id : props.match.teamScores[1].team?.id
+const props = withDefaults(defineProps<Props>(), {
+  layout: 'horizontal',
+  showStage: false
 })
 </script>
 
 <style scoped lang="scss">
+@import '../assets/scss/variables';
+
+.match {
+  @include box;
+}
+
 .card {
   width: 100%;
   margin: 10px 0;
