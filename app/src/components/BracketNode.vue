@@ -1,9 +1,9 @@
 <template>
-  <div class="bracket-node d-flex flex-row-reverse flex-nowrap">
-    <div class="round d-flex flex-column flex-nowrap justify-space-around align-stretch current">
+  <div class="bracket-node">
+    <div class="round">
       <Match :match="props.match"></Match>
     </div>
-    <div v-if="props.match.precedingMatches" class="round d-flex flex-column flex-nowrap justify-space-around align-stretch">
+    <div v-if="props.match.precedingMatches" class="round">
       <Match v-for="(match, index) in props.match.precedingMatches" :key="index" :match="match"></Match>
     </div>
   </div>

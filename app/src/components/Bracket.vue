@@ -1,5 +1,5 @@
 <template>
-  <div class="bracket-full d-flex flex-row-reverse flex-nowrap justify-center align-stretch">
+  <div class="bracket-full">
     <BracketNode v-if="bracket.root" :match="bracket.root"></BracketNode>
   </div>
 </template>

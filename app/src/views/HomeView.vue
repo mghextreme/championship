@@ -1,12 +1,8 @@
 <template>
-  <TopBar></TopBar>
-  <v-main class="bg-grey-lighten-3">
-    <v-container>
-      <v-sheet rounded="lg" class="pa-5">
-        <Bracket v-if="sample2" :stage="sample2"></Bracket>
-      </v-sheet>
-    </v-container>
-  </v-main>
+  <div class="view home">
+    <TopBar></TopBar>
+    <Bracket v-if="sample2" :stage="sample2"></Bracket>
+  </div>
 </template>
 
 <script setup lang="ts">

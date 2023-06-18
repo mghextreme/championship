@@ -1,35 +1,35 @@
 <template>
   <div class="round-robin-full">
     <h4>Standings</h4>
-    <v-table>
+    <table>
       <thead>
         <tr>
-          <th :colspan="2" class="text-left">Team</th>
-          <th class="text-center">P</th>
-          <th class="text-center">M</th>
-          <th class="text-center">W</th>
-          <th class="text-center">T</th>
-          <th class="text-center">L</th>
-          <th class="text-center">S&Delta;</th>
-          <th class="text-center">SP</th>
-          <th class="text-center">SA</th>
+          <th :colspan="2">Team</th>
+          <th>P</th>
+          <th>M</th>
+          <th>W</th>
+          <th>T</th>
+          <th>L</th>
+          <th>S&Delta;</th>
+          <th>SP</th>
+          <th>SA</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, index) in bracket.standings" :key="index">
-          <td><v-avatar v-if="item.team.color" :color="item.team.color" size="x-small"></v-avatar></td>
-          <td class="text-left">{{ item.team.name }}</td>
-          <td class="text-center font-weight-bold">{{ item.points }}</td>
-          <td class="text-center">{{ item.wins + item.ties + item.losses }}</td>
-          <td class="text-center">{{ item.wins }}</td>
-          <td class="text-center">{{ item.ties }}</td>
-          <td class="text-center">{{ item.losses }}</td>
-          <td class="text-center">{{ item.scorePro - item.scoreAgainst }}</td>
-          <td class="text-center">{{ item.scorePro }}</td>
-          <td class="text-center">{{ item.scoreAgainst }}</td>
+          <td>Icon</td>
+          <td>{{ item.team.name }}</td>
+          <td>{{ item.points }}</td>
+          <td>{{ item.wins + item.ties + item.losses }}</td>
+          <td>{{ item.wins }}</td>
+          <td>{{ item.ties }}</td>
+          <td>{{ item.losses }}</td>
+          <td>{{ item.scorePro - item.scoreAgainst }}</td>
+          <td>{{ item.scorePro }}</td>
+          <td>{{ item.scoreAgainst }}</td>
         </tr>
       </tbody>
-    </v-table>
+    </table>
     <h4 class="mt-4">Matches</h4>
     <Match v-for="match in bracket.matches" :match="match"></Match>
   </div>
@@ -56,7 +56,7 @@ if (bracket.value.type == StageType.RoundRobin && bracket.value.id && !bracket.v
 </script>
 
 <style scoped lang="scss">
-.v-table {
+table {
   width: 100%;
 }
 </style>
