@@ -25,7 +25,7 @@ pnpm start
 To start the Angular application, run the following command within the `/app` folder:
 
 ```bash
-pnpm start:dev
+pnpm dev
 ```
 
 * Requires the [API](#api) to be setup
