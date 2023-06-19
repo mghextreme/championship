@@ -1,10 +1,9 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { TeamMatchScore } from "./team-match-score.entity";
+import { ApiProperty } from '@nestjs/swagger';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { TeamMatchScore } from './team-match-score.entity';
 
 @Entity()
 export class Team {
-
   @PrimaryGeneratedColumn()
   @ApiProperty()
   id: number;
@@ -19,5 +18,4 @@ export class Team {
 
   @OneToMany(() => TeamMatchScore, (matchScore) => matchScore.team)
   matchScores: TeamMatchScore[];
-
 }

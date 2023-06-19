@@ -1,16 +1,22 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Match } from "./match.entity";
-import { Modality } from "./modality.entity";
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Match } from './match.entity';
+import { Modality } from './modality.entity';
 
 export enum StageType {
-  RoundRobin = "round-robin",
-  SingleBracket = "single-bracket"
+  RoundRobin = 'round-robin',
+  SingleBracket = 'single-bracket',
 }
 
 @Entity()
 export class Stage {
-
   @PrimaryGeneratedColumn()
   @ApiProperty()
   id: number;
@@ -20,9 +26,9 @@ export class Stage {
   name: string;
 
   @Column({
-    type: "enum",
+    type: 'enum',
     enum: StageType,
-    default: StageType.SingleBracket
+    default: StageType.SingleBracket,
   })
   @ApiProperty({ enum: StageType })
   type: StageType;
@@ -30,7 +36,7 @@ export class Stage {
   @OneToMany(() => Match, (match) => match.stage)
   matches: Match[];
 
-  @ManyToOne(() => Modality, (modality) => modality.stages, {nullable: false})
+  @ManyToOne(() => Modality, (modality) => modality.stages, { nullable: false })
   @JoinColumn({ name: 'modalityId' })
   modality: Modality;
 
@@ -40,5 +46,4 @@ export class Stage {
   @Column()
   @ApiProperty()
   finished: boolean;
-
 }

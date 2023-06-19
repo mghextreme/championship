@@ -1,36 +1,45 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Tree, TreeChildren, TreeParent } from "typeorm";
-import { Stage } from "./stage.entity";
-import { TeamMatchScore } from "./team-match-score.entity";
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Tree,
+  TreeChildren,
+  TreeParent,
+} from 'typeorm';
+import { Stage } from './stage.entity';
+import { TeamMatchScore } from './team-match-score.entity';
 
 @Entity()
-@Tree("closure-table", {
-  closureTableName: "bracket_matches_closure"
+@Tree('closure-table', {
+  closureTableName: 'bracket_matches_closure',
 })
 export class Match {
-
   @PrimaryGeneratedColumn()
   @ApiProperty()
   id: number;
 
-  @Column({default: true})
+  @Column({ default: true })
   @ApiProperty()
   finished: boolean;
 
-  @Column({default: null})
+  @Column({ default: null })
   @ApiProperty()
   startDateTime: Date;
 
-  @Column({default: null})
+  @Column({ default: null })
   @ApiProperty()
-  round: number
+  round: number;
 
   @OneToMany(() => TeamMatchScore, (teamScore) => teamScore.match)
   teamScores: TeamMatchScore[];
 
-  @ManyToOne(() => Stage, (stage) => stage.matches, {nullable: false})
+  @ManyToOne(() => Stage, (stage) => stage.matches, { nullable: false })
   @JoinColumn({ name: 'stageId' })
-  stage: Stage
+  stage: Stage;
 
   @Column()
   stageId: number;
@@ -44,5 +53,4 @@ export class Match {
 
   @Column({ nullable: true })
   nextMatchId: number;
-
 }

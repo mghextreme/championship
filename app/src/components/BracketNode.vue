@@ -1,10 +1,10 @@
 <template>
   <div class="bracket-node">
     <div class="round">
-      <Match :match="props.match"></Match>
+      <Match :match="props.match" layout="vertical" :show-stage="false"></Match>
     </div>
     <div v-if="props.match.precedingMatches" class="round">
-      <Match v-for="(match, index) in props.match.precedingMatches" :key="index" :match="match"></Match>
+      <Match v-for="(match, index) in props.match.precedingMatches" :key="index" :match="match" layout="vertical" :show-stage="false"></Match>
     </div>
   </div>
 </template>
@@ -19,12 +19,26 @@ const props = defineProps<{
 </script>
 
 <style lang="scss" scoped>
-.bracket-node .round {
-  width: 220px;
-  margin: 0;
+@import '../assets/scss/variables';
 
-  &.current {
-    margin-left: 20px;
+.bracket-node {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+
+  .round {
+    flex: 0 0 auto;
+    width: calc(50% - $spacing-1);
+    margin-left: $spacing-2;
+
+    &:last-of-type { margin-left: 0; }
+
+    .match {
+      margin-bottom: $spacing-2;
+
+      &:last-of-type { margin-bottom: 0; }
+    }
   }
 }
 </style>
