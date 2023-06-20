@@ -16,10 +16,16 @@
         </div>
       </div>
       <div class="container matches" v-if="nextMatches">
-        <Match :match="match" :stage="match.stage" :show-stage="true" show-datetime="time" v-for="match in nextMatches" :key="match.id"></Match>
+        <template v-for="(match, index) in nextMatches" :key="match.id">
+          <h4>{{ matchDate(match) }}</h4>
+          <Match :match="match" :stage="match.stage" :show-stage="true" show-datetime="time"></Match>
+        </template>
       </div>
       <div class="container results" v-if="pastMatches">
-        <Match :match="match" :stage="match.stage" :show-stage="true" v-for="match in nextMatches" :key="match.id"></Match>
+        <template v-for="(match, index) in pastMatches" :key="match.id">
+          <h4>{{ matchDate(match) }}</h4>
+          <Match :match="match" :stage="match.stage" :show-stage="true"></Match>
+        </template>
       </div>
     </div>
   </div>
@@ -68,6 +74,10 @@ if (id) {
     })
   })
 }
+
+function matchDate(match: IMatch): string {
+  return match.startDateTime?.format('DD/MM/YYYY') ?? '';
+}
 </script>
 
 <style lang="scss" scoped>
@@ -87,6 +97,16 @@ ul.tabs {
 .tab-contents {
   .matches,
   .results {
+    h4 {
+      padding-left: $spacing-1;
+      margin-bottom: $spacing-1;
+      font-size: .85em;
+      color: $gray-800;
+    }
+    .match + h4 {
+      margin-top: $spacing-2;
+    }
+
     .match {
       margin-bottom: $spacing-1;
     }

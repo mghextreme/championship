@@ -22,7 +22,11 @@ export class Match {
   @ApiProperty()
   id: number;
 
-  @Column({ default: true })
+  @Column({ default: false })
+  @ApiProperty()
+  started: boolean;
+
+  @Column({ default: false })
   @ApiProperty()
   finished: boolean;
 
