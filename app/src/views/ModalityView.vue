@@ -2,39 +2,50 @@
   <div class="view modality">
     <TopBar></TopBar>
     <h1 class="p-2">{{ modality?.name }}</h1>
-    <ul class="tabs my-2">
-      <li>Standings</li>
-      <li v-if="nextMatches">Matches</li>
-      <li v-if="pastMatches">Results</li>
-    </ul>
-    <div class="tab-contents">
-      <div class="container standings">
-        <div class="stage mb-3" v-for="stage in modality?.stages" :key="stage.id">
-          <h4>{{ stage.name }}</h4>
-          <SingleBracket :stage="stage" v-if="stage.type == StageType.SingleBracket"></SingleBracket>
-          <GroupStandings :stage="stage" v-if="stage.type == StageType.RoundRobin"></GroupStandings>
+    <swiper
+      class="tab-contents"
+      :modules="swiperModules"
+      :pagination="swiperPaginationOptions"
+      :slides-per-view="1"
+      :space-between="20">
+      <ul class="tabs my-2"></ul>
+      <swiper-slide>
+        <div class="container standings">
+          <div class="stage mb-3" v-for="stage in modality?.stages" :key="stage.id">
+            <h4>{{ stage.name }}</h4>
+            <SingleBracket :stage="stage" v-if="stage.type == StageType.SingleBracket"></SingleBracket>
+            <GroupStandings :stage="stage" v-if="stage.type == StageType.RoundRobin"></GroupStandings>
+          </div>
         </div>
-      </div>
-      <div class="container matches" v-if="nextMatches">
-        <template v-for="(match, index) in nextMatches" :key="match.id">
-          <h4 v-if="index == 0 || matchDate(match) != matchDate(nextMatches[index - 1])">{{ matchDate(match) }}</h4>
-          <Match :match="match" :stage="match.stage" :show-stage="true" show-datetime="time"></Match>
-        </template>
-      </div>
-      <div class="container results" v-if="pastMatches">
-        <template v-for="(match, index) in pastMatches" :key="match.id">
-          <h4 v-if="index == 0 || matchDate(match) != matchDate(pastMatches[index - 1])">{{ matchDate(match) }}</h4>
-          <Match :match="match" :stage="match.stage" :show-stage="true"></Match>
-        </template>
-      </div>
-    </div>
+      </swiper-slide>
+      <swiper-slide v-if="nextMatches">
+        <div class="container matches">
+          <template v-for="(match, index) in nextMatches" :key="match.id">
+            <h4 v-if="index == 0 || matchDate(match) != matchDate(nextMatches[index - 1])">{{ matchDate(match) }}</h4>
+            <Match :match="match" :stage="match.stage" :show-stage="true" show-datetime="time"></Match>
+          </template>
+        </div>
+      </swiper-slide>
+      <swiper-slide v-if="pastMatches">
+        <div class="container results">
+          <template v-for="(match, index) in pastMatches" :key="match.id">
+            <h4 v-if="index == 0 || matchDate(match) != matchDate(pastMatches[index - 1])">{{ matchDate(match) }}</h4>
+            <Match :match="match" :stage="match.stage" :show-stage="true"></Match>
+          </template>
+        </div>
+      </swiper-slide>
+    </swiper>
   </div>
 </template>
 
 <script setup lang="ts">
-import { inject, Ref, ref } from 'vue';
+import { computed, inject, Ref, ref } from 'vue';
 import moment from 'moment';
 import { useRoute } from 'vue-router';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Pagination } from 'swiper';
+import 'swiper/css';
+
 import { MatchesService, ModalitiesService } from '../services';
 import { IMatch, IModality, StageType } from '../models';
 import TopBar from '../components/TopBar.vue'
@@ -50,6 +61,23 @@ const nextMatches: Ref<IMatch[] | null> = ref(null)
 const pastMatches: Ref<IMatch[] | null> = ref(null)
 const modalitiesService = inject<ModalitiesService>(ModalitiesService.name)
 const matchesService = inject<MatchesService>(MatchesService.name)
+
+const tabNames = computed(() => {
+  const list = ['Standings']
+  if (nextMatches) { list.push('Matches'); }
+  if (pastMatches) { list.push('Results'); }
+  return list;
+})
+
+const swiperModules = [Pagination];
+const swiperPaginationOptions = computed(() => ({
+  clickable: true,
+  el: '.tabs',
+  type: 'bullets',
+  renderBullet: (index: number, className: string) => '<li class="' + className + '">' + tabNames.value[index] + '</li>',
+  bulletClass: 'tab',
+  bulletActiveClass: 'active'
+}));
 
 if (id) {
   modalitiesService?.findOne(id).then(response => {
@@ -83,18 +111,25 @@ function matchDate(match: IMatch): string {
 <style scoped lang="scss">
 @import '../assets/scss/variables';
 
-ul.tabs {
-  text-align: center;
-
-  li {
-    @include box;
-
-    display: inline-block;
-    margin: 0 $spacing-1;
-  }
-}
-
 .tab-contents {
+  display: flex;
+  flex-direction: column;
+
+  ul.tabs {
+    order: -1;
+    text-align: center;
+
+    :is(li) {
+      display: inline-block;
+      box-sizing: border-box;
+      padding: calc($border-width + $spacing-1) calc($border-width + $spacing-2);
+    }
+
+    :is(li.active) {
+      @include box;
+    }
+  }
+
   .container {
     h4 {
       padding-left: $spacing-1;
