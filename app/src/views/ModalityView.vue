@@ -2,28 +2,28 @@
   <div class="view modality">
     <TopBar></TopBar>
     <h1 class="p-2">{{ modality?.name }}</h1>
-    <ul class="tabs mb-2">
+    <ul class="tabs my-2">
       <li>Standings</li>
       <li v-if="nextMatches">Matches</li>
       <li v-if="pastMatches">Results</li>
     </ul>
     <div class="tab-contents">
       <div class="container standings">
-        <div class="stage mb-4" v-for="stage in modality?.stages" :key="stage.id">
-          <h3 class="mb-2">{{ stage.name }}</h3>
+        <div class="stage mb-3" v-for="stage in modality?.stages" :key="stage.id">
+          <h4>{{ stage.name }}</h4>
           <SingleBracket :stage="stage" v-if="stage.type == StageType.SingleBracket"></SingleBracket>
           <GroupStandings :stage="stage" v-if="stage.type == StageType.RoundRobin"></GroupStandings>
         </div>
       </div>
       <div class="container matches" v-if="nextMatches">
         <template v-for="(match, index) in nextMatches" :key="match.id">
-          <h4>{{ matchDate(match) }}</h4>
+          <h4 v-if="index == 0 || matchDate(match) != matchDate(nextMatches[index - 1])">{{ matchDate(match) }}</h4>
           <Match :match="match" :stage="match.stage" :show-stage="true" show-datetime="time"></Match>
         </template>
       </div>
       <div class="container results" v-if="pastMatches">
         <template v-for="(match, index) in pastMatches" :key="match.id">
-          <h4>{{ matchDate(match) }}</h4>
+          <h4 v-if="index == 0 || matchDate(match) != matchDate(pastMatches[index - 1])">{{ matchDate(match) }}</h4>
           <Match :match="match" :stage="match.stage" :show-stage="true"></Match>
         </template>
       </div>
@@ -76,11 +76,11 @@ if (id) {
 }
 
 function matchDate(match: IMatch): string {
-  return match.startDateTime?.format('DD/MM/YYYY') ?? '';
+  return match.startDateTime?.format('DD/MM/YYYY') ?? 'TBD';
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 @import '../assets/scss/variables';
 
 ul.tabs {
@@ -95,8 +95,7 @@ ul.tabs {
 }
 
 .tab-contents {
-  .matches,
-  .results {
+  .container {
     h4 {
       padding-left: $spacing-1;
       margin-bottom: $spacing-1;

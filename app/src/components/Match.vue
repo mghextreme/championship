@@ -145,6 +145,7 @@ function matchWinnerLoser(score?: number): string {
     }
 
     &.horizontal {
+      .team-score { width: 30%; }
       .team-score:first-of-type { order: -1; }
       .team-score:last-of-type {
         order: 1;
