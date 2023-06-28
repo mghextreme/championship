@@ -4,6 +4,7 @@ import { IStage } from "./stage.interface";
 
 export interface IMatch {
   id?: number
+  name?: string
   started: boolean
   finished: boolean
   teamScores?: ITeamScore[]

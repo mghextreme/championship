@@ -1,5 +1,5 @@
 <template>
-  <div class="match">
+  <router-link :to="'/match/' + match.id" class="match">
     <div class="header">
       <div class="stage" v-if="showStage && stage">{{ stage.name }}</div>
       <div class="datetime" v-if="showDatetime && match.startDateTime && !isLive">{{ showDatetime == 'time' ? formattedTime : formattedDatetime }}</div>
@@ -12,7 +12,7 @@
         <div class="score">{{ teamScore.score || '0' }}</div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script setup lang="ts">
@@ -73,6 +73,7 @@ function matchWinnerLoser(score?: number): string {
 @import '../assets/scss/variables';
 
 .match {
+  display: block;
   @include box;
 
   .header {

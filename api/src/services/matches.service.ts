@@ -33,6 +33,9 @@ export class MatchesService {
       },
       order: {
         startDateTime: finished === true ? 'DESC' : 'ASC',
+        teamScores: {
+          id: 'ASC',
+        },
       },
     });
   }
@@ -44,8 +47,15 @@ export class MatchesService {
         teamScores: {
           team: true,
         },
+        stage: {
+          modality: true,
+        },
       },
-      loadRelationIds: true,
+      order: {
+        teamScores: {
+          id: 'ASC',
+        },
+      },
     });
   }
 }
